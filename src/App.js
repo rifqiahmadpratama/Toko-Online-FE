@@ -1,57 +1,65 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
+//pages
+import Login from "./pages/login";
+import Register from "./pages/register";
+import Home from "./pages/home";
+import Profile from "./pages/profile";
+import Search from "./pages/search";
+
+//components
+import Navbarafterlogin from "./components/NavbarAfterLogin";
+import NavbarBeforeLogin from "./components/NavbarBeforeLogin";
+import PageDeviceNotSupported from "./pages/PageDeviceNotSupported";
+import PageNotFound from "./pages/PageNotFound";
+import useWindowDimensions from "./components/WindowsSize";
+import ScrollToTop from "./components/ScrollToTop";
+import Footer from "./components/Footer";
 
 function App() {
+  const location = useLocation();
+
+  const { height, width } = useWindowDimensions();
+  const isAuth = localStorage.getItem("token");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <>
+      <ScrollToTop>
+        {width >= 576 ? (
+          location.pathname === "/login" ||
+          location.pathname === "/register" ? null : isAuth === null ? (
+            <NavbarBeforeLogin />
+          ) : (
+            <Navbarafterlogin />
+          )
+        ) : null}
+
+        {width >= 576 ? (
+          <Routes>
+            <Route path="/" element={<Navigate to="/home" replace="true" />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<PageNotFound />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/search" element={<Search />} />
+          </Routes>
+        ) : (
+          <Routes>
+            <Route path="*" element={<PageDeviceNotSupported />} />
+          </Routes>
+        )}
+        <ToastContainer />
+        {width >= 576 ? (
+          location.pathname === "/login" ||
+          location.pathname === "/register" ? null : (
+            <Footer />
+          )
+        ) : null}
+      </ScrollToTop>
+    </>
   );
 }
 

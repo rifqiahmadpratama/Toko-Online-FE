@@ -1,8 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import profileReducer from "../features/profileSlice";
+import homeReducer from "../features/homeSlice";
+import searchReducer from "../features/searchSlice";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    profile: profileReducer,
+    home: homeReducer,
+    search: searchReducer,
   },
 });
