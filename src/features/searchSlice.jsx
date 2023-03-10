@@ -9,7 +9,7 @@ export const getSearch = createAsyncThunk(
   "search/getSearch",
   async (keyword) => {
     const response = await axios.get(
-      process.env.REACT_APP_API_BACKEND + `product?search=${keyword}`,
+      process.env.REACT_APP_API_BACKEND + "product?search=" + keyword,
       {
         headers: {
           "Content-Type": "application/json",
