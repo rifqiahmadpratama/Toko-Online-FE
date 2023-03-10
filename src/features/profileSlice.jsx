@@ -10,13 +10,16 @@ import { toast } from "react-toastify";
 export const getProfile = createAsyncThunk("profile/getProfile", async () => {
   const token = localStorage.getItem("token");
 
-  const response = await axios.get("http://localhost:3200/user/profile", {
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await axios.get(
+    process.env.REACT_APP_API_BACKEND + "user/profile",
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   console.log("cek user = ", response.data.data[0]);
   return response.data.data[0];
 });
