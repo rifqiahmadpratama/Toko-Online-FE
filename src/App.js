@@ -27,7 +27,7 @@ function App() {
   return (
     <>
       <ScrollToTop>
-        {width >= 400 ? (
+        {width >= 200 ? (
           location.pathname === "/login" ||
           location.pathname === "/register" ? null : isAuth === null ? (
             <NavbarBeforeLogin />
@@ -36,7 +36,7 @@ function App() {
           )
         ) : null}
 
-        {width >= 400 ? (
+        {width >= 200 ? (
           <Routes>
             <Route path="/" element={<Navigate to="/home" replace="true" />} />
             <Route path="/home" element={<Home />} />
@@ -52,7 +52,7 @@ function App() {
           </Routes>
         )}
         <ToastContainer />
-        {width >= 400 ? (
+        {width >= 200 ? (
           location.pathname === "/login" ||
           location.pathname === "/register" ? null : (
             <Footer />
